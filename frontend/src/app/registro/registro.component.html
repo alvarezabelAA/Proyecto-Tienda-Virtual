@@ -1,0 +1,40 @@
+<body>
+    <div id="contenedor">
+        <div id="left">
+            <div id="contenido1">
+               
+                <p>Cree una cuenta para poder acceder a los <br>
+                multiples beneficios en nuestra tienda y poder hacer compras!</p>
+            </div>
+        </div>
+
+        <div id="right">
+            <div class="formulario" id="contenido2" [formGroup]="formGroup">
+                <h1>Ingrese sus datos</h1><br>
+                <!--Input Nombre-->
+                <label class="label">Nombre:</label>
+                <input type="text" placeholder="indique un solo nombre" formControlName="nombre">
+    
+                <!--input de Correo-->
+                <label class="label">Correo Electronico:</label>
+                <input type="text" placeholder="Email" formControlName="correo">
+    
+                <!--input de Nacimiento-->
+                <label class="label">Fecha de Nacimiento:</label>
+                <input type="text" formControlName="fecha">
+               
+    
+                <!--input de Contraseña-->
+                <label class="label">Contraseña:</label>
+                <input placeholder="Escriba su contraseña" type="password" formControlName="contrasena" formControlName="contrasena"><br><br>
+                <a href="" (click)="insertarCliente()" class="btn41-43 btn-41" style="text-decoration: none;">
+                    Registrarse
+                </a>
+                <a href="/inicio" class="btn41-43 btn-41" style="text-decoration: none;">
+                    Iniciar Sesion
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</body>

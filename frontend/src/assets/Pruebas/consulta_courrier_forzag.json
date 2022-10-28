@@ -1,0 +1,8 @@
+{ "consultaprecio":
+    {
+        "courrier":"forzag",
+        "destino":"aca va el destino",
+        "cobertura":"true",
+        "costo":"1050.00"
+    }
+}

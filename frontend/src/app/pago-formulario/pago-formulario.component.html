@@ -1,0 +1,125 @@
+<app-main-toolbar></app-main-toolbar>
+<body [formGroup]="formGroup">
+    <div class="main">
+        <div id="contenedor" >
+            <div id="left">
+                <h1 style="color: white;">DETALLES FACTURACION</h1><br>
+                <div id="contenido1">
+                    <label for="nombre_respuesta">Nombre</label>
+                    <p class="factura_respuesta">{{nombre}}</p><br>
+    
+                    <label for="correo_respuesta">Correo Electronico</label>
+                    <p class="factura_respuesta">{{(correo$ | async)}}</p><br>
+    
+                    <label for="Direccion_envio">Direccion Domicilio</label>
+                    <p class="factura_respuesta">{{direccion}}</p>
+    
+                    <label for="tarjeta_asociada">Detalles tarjeta</label>
+                    <p class="factura_respuesta" style="margin: 0%;">{{respuestas_tarjeta.emisor}}</p><br>
+                    
+                    <label for="Destinatario">Destinatario del envio</label>
+                    <p class="factura_respuesta">{{destinatario}}</p>
+
+                    <label for="orde">Numero de orden del envio</label>
+                    <p class="factura_respuesta">{{id_compra_ale}}</p>
+                    
+                    <p class="respuesta_factura1">Total: Q{{total_pagar}}</p>
+                    <div class="botones" style="display: flex; align-items: center; flex-direction: column;">
+                        <button (click)="proceder()" class="bn5" style="width: 70%; margin-top: 2%;">Proceder</button>
+                    </div>
+                </div>
+            </div>
+    
+    
+            <div id="right">
+                <div id="superior">
+                    <div id="toolbar">
+                        <div id="barra">
+                            <div id="relleno" style="width: 50%;"></div>
+                        </div>
+                        <div id="toolbar_abajo">
+                            <p>Detalles Shipping</p>
+                            <p>Detalles Tarjeta</p>
+                            <p>Validacion Tarjeta</p>
+                            <p>Generar Orden</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="inferior">
+                    <div id="inferior_izquierda">
+                        <div id="contenido2">
+                            <h1>TARJETA PAGO</h1>
+                            <!--input de nombre-->
+                            <label class="label">Nombre:</label>
+                            <input type="text" placeholder="Ingrese un solo nombre" formControlName="nombre">
+        
+                            <!--input de numero-->
+                            <label class="label"># Tarjeta:</label>
+                            <input type="number" placeholder="Ingrese el numero de su tarjeta" formControlName="tarjeta">
+        
+                            <!--input de vencimiento-->
+                            <label class="label">Fecha Vencimiento:</label>
+                            <input type="text" formControlName="date_venc">
+        
+                            <!--input de codigo-->
+                            <label class="label">Codigo Seguridad:</label>
+                            <input type="number" placeholder="ingrese el codigo de seguridad" formControlName="codigo">
+        
+                            <label class="label">Emisor de Tarjeta:</label>
+                            <mat-radio-group aria-label="Select an option" formControlName="url_tarjeta" style="background-color: gray;">
+                                <mat-radio-button  value="../../assets/Pruebas/consulta_tarjeta_visa.json">VISA</mat-radio-button><br>
+                                <mat-radio-button value="https://0cf3-2803-d100-e100-205-a40e-78fc-fce5-c47e.ngrok.io/BancaOnline/autorizacion.php?">Diners Club</mat-radio-button><br>
+                                <mat-radio-button value="https://warm-falls-07134.herokuapp.com/autorizacion?">Mastercard</mat-radio-button><br>
+                                <mat-radio-button value="https://f418-2800-98-1116-9b8-259d-41b8-8d84-3a64.ngrok.io/AmericanExpress-CC6/autorizacion.php?">American Express</mat-radio-button>
+                            </mat-radio-group>
+        
+                            
+                            <h3 id="respuesta_tarjeta1">ESTADO:{{respuestas_tarjeta.status}}</h3>
+                            <h3 id="respuesta_tarjeta2"># AUTORIZACION:{{respuestas_tarjeta.numero}}</h3>
+                        </div>
+                        <div class="botones"style="display: flex; align-items: center; flex-direction: column; margin:2%;">
+                            <button  (click)="pagar_tarjeta()" class="bn5" style="margin-bottom: 2%;">Pagar</button>
+                        </div>
+                    </div>
+    
+                    <div id="inferior_derecha">
+                        <div id="contenido3">
+                            <h1 style="color: white;">ENVIO DOMICILIO</h1>
+                            <!--input de Direccion-->
+                            <label class="label" style="color: white;">Direccion de Domicilio:</label>
+                            <input type="text" placeholder="Ingrese su domicilio" formControlName="direccion">
+        
+                            <!--input de codigo postal-->
+                            <label class="label" style="color: white;">Codigo Postal:</label>
+                            <input type="text" placeholder="Ingrese su codigo postal" formControlName="destino">
+
+                            <!--input de destinatario-->
+                            <label class="label" style="color: white;">Destinatario:</label>
+                            <input type="text" placeholder="Ingrese a quien va el envio" formControlName="destinatario">
+        
+                            <label class="label" style="color: white;">Empresas de Envio:</label>
+                            <mat-radio-group aria-label="Select an option" formControlName="url_courrier">
+                                <mat-radio-button  value="../../assets/Pruebas/consulta_courrier_galiex.json" >GALIEX</mat-radio-button><br>
+                                <mat-radio-button value="../../assets/Pruebas/consulta_courrier_YyJ.json">Y&J EXPRESS</mat-radio-button><br>
+                                <mat-radio-button value="http://forzagcourrier.herokuapp.com">Forza G</mat-radio-button><br>
+                                <mat-radio-button value="http://rutasguatemaltecasexpress.com">RGX</mat-radio-button>
+                            </mat-radio-group>
+                            <br>
+                            <label>Costo del Envio:</label>
+                            <div>
+                                <h3 id="courrier_respuesta_empresa" style="color: white;">{{respuestas_courrier.courrier}}</h3>
+                                <h3 id="courrier_respuesta_costo" style="color: white;">Q{{respuestas_courrier.costo}}</h3>
+                                <h3 id="courrier_respuesta_cobertura" style="color: white;">{{respuestas_courrier.cobertura}}</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="botones" style="display: flex; align-items: center; flex-direction: column;">
+                            <button (click)="cotizar_courrier()" class="bn5" style="width: 90%;">Cotizar Precio de envio</button><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+</body>
